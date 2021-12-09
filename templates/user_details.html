@@ -21,4 +21,16 @@
     </div>
   </div>
 </div>
+
+<div id="user-posts-container">
+  {% if posts %}  
+    <ul id="user-posts-list">
+    {% for post in posts %}
+      <a href="/posts/{{ post.id }}"><li class="user-post-link">{{ post.title }}</li></a>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  <a href="/users/{{ user.id }}/posts/new"><button class="btn btn-primary">Add Post</button></a>
+</div>
+
 {% endblock %}

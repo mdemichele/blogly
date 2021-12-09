@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, flash, session 
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 
 app = Flask(__name__)
 
@@ -22,7 +22,7 @@ def home_page():
 @app.route('/users')
 def users_page():
     users = User.query.all()
-    print(users)
+    
     return render_template('user_list.html', users=users)
     
 @app.route('/users/new')
@@ -51,7 +51,10 @@ def get_user_details_page(userId):
     # Get the user from the data 
     user = User.query.get(userId)
     
-    return render_template('user_details.html', user=user)
+    # Get the user's posts 
+    posts = user.posts
+    
+    return render_template('user_details.html', user=user, posts=posts)
     
 @app.route('/users/<userId>/edit')
 def get_edit_user_page(userId):
@@ -92,10 +95,65 @@ def delete_user(userId):
     
     return redirect('/users')
 
+@app.route('/users/<userId>/posts/new')
+def get_create_post_page(userId):
+    """Shows form to add a post for the specified user"""
+    user = User.query.get(userId)
+    
+    return render_template('create_post.html', user=user)
+    
+@app.route('/users/<userId>/posts/new', methods=["POST"])
+def create_post(userId):
+    """Adds post to database and redirects to homepage"""
+    title = request.form["post-title"]
+    content = request.form["post-content"]
+    
+    # Create post object 
+    newPost = Post(title=title, content=content, post_author=userId)
+    
+    # Add new post object to database 
+    db.session.add(newPost)
+    db.session.commit()
+    
+    return redirect('/')
 
+@app.route('/posts/<postId>')
+def get_post_details_page(postId):
+    """Gets the post details page for the specified post"""
+    post = Post.query.get(postId)
+    
+    return render_template('post_details.html', post=post)
+    
+@app.route('/posts/<postId>/edit')
+def get_post_edit_page(postId):
+    """Gets the post edit page for the specified post"""
+    post = Post.query.get(postId)
+    
+    return render_template('post_edit.html', post=post)
 
+@app.route('/posts/<postId>/edit', methods=["POST"])
+def edit_post(postId):
+    """Edits a post"""
+    newPostTitle = request.form["post-title"]
+    newPostContent = request.form["post-content"]
+    
+    newPost = Post.query.get(postId)
 
+    newPost.title = newPostTitle
+    newPost.content = newPostContent 
+    
+    db.session.add(newPost)
+    db.session.commit()
+    
+    return redirect('/')
 
-
+@app.route('/posts/<postId>/delete')
+def delete_post(postId):
+    """Deletes a post"""
+    Post.query.filter_by(id=postId).delete()
+    
+    db.session.commit()
+    
+    return redirect('/')
 
 

@@ -1,6 +1,6 @@
 from unittest import TestCase
 from app import app 
-from models import db, User
+from models import db, User, Post
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly_test'
 app.config['SQLALCHEMY_ECHO'] = False
@@ -17,9 +17,16 @@ class UserModelTests(TestCase):
         user1 = User(first_name="Matt", last_name="DeMichele", image_url="eaaafdfa.com")
         user2 = User(first_name="Dan", last_name="Hooker", image_url="afdadfaal.com")
         
+        # post1 = Post(title="Simple Post", content="It is what it is.", post_author=1)
+        # post2 = Post(title="Another Post", content="Again, so it is.", post_author=2)
+        
         db.session.add(user1)
         db.session.add(user2)
         db.session.commit()
+        
+        # db.session.add(post1)
+        # db.session.add(post2)
+        # db.session.commit()
         
         
     def tearDown(self):
@@ -33,8 +40,15 @@ class UserModelTests(TestCase):
         # Get all users 
         users = User.query.all()
         
-        # Check that there is exactly 1 user in the database 
+        # Check that there are exactly 2 users in the database 
         self.assertEquals(len(users), 2)
+    # 
+    # def test_get_posts(self):
+    #     """Test should get all posts in database"""
+    #     # Get all posts 
+    #     posts = Post.query.all()
+        
+        # check that there are exactly 2 posts in the database
     
         
         

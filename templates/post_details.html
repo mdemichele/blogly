@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+<div id="post-title-container">
+  <h1 id="post-title">{{ post.title }}</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="post-details-container">
+  <p id="post-content">{{ post.content }}</p>
+  <p id="post-author">Written By: {{ post.author.first_name }} {{ post.author.last_name}}</p>
+
+  <div id="post-buttons-container">
+    <a href="/"><button class="btn btn-secondary">Cancel</button></a>
+    <a href="/posts/{{ post.id }}/edit"><button class="btn btn-primary">Edit</button></a>
+    <a href="/posts/{{ post.id }}/delete"><button class="btn btn-danger">Delete</button></a>
+  </div>
+</div>
+{% endblock %}
