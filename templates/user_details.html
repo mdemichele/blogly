@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+<div id="user-detail-title-container">
+  <h1 id="user-detail-title">{{ user.name }}</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="user-detail-container">
+  <div id="user-detail-image-container">
+    <img class="rounded img-thumbnail" src="{{ user.image_url }}"/>
+  </div>
+  
+  <div id="user-detail-text-container">
+    <h2 id="user-detail-text-title">{{ user.first_name }} {{ user.last_name }}</h2>
+    
+    <div id="user-detail-edit-container">
+      <a href="/users/{{ user.id }}/edit"><button class="btn btn-primary">Edit</button></a>
+      <a href="/users/{{ user.id }}/delete"><button class="btn btn-danger">Delete</button></a>
+    </div>
+  </div>
+</div>
+{% endblock %}

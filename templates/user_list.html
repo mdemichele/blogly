@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+<div id="home-title-container">
+  <h1 id="home-title">Users</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div>
+  {% if users %}
+  <div id="users-list-container">
+    {% for user in users %}
+      <li class="user-in-list">
+        <a href="/users/{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</a>
+      </li>
+    {% endfor %}
+  </div>
+  {% endif %}
+  
+  <div id="add-new-user-container">
+    <a href="/users/new"><button class="btn btn-primary">Add User</button></a>
+  </div>
+</div>
+{% endblock %}

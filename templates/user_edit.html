@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+<div id="edit-user-title-container">
+  <h1 id="edit-user-title">Edit a user</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div>
+  <div id="edit-user-form-container">
+    <form id="edit-user-form" action="/users/{{ user.id }}/edit" method="POST">
+      
+      <div class="mb-3">
+        <label class="form-label" for="first-name">First Name</label>
+        <input class="form-control" name="first-name" type="text" value="{{ user.first_name }}"/>
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label" for="last-name">Last Name</label>
+        <input class="form-control" name="last-name" type="text" value="{{ user.last_name }}"/>
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label" for="image-url">Image URL</label>
+        <input class="form-control" name="image-url" type="text" value="{{ user.image_url }}"/>
+      </div>
+      
+      <a href="/users"><button class="btn btn-secondary">Cancel</button></a>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
