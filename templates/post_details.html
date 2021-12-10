@@ -10,6 +10,13 @@
 <div id="post-details-container">
   <p id="post-content">{{ post.content }}</p>
   <p id="post-author">Written By: {{ post.author.first_name }} {{ post.author.last_name}}</p>
+  
+  <div id="post-tags-container">
+    <h4 id="post-tags-subtitle">Tags: </h4>
+    {% for tag in post.tags %}
+    <div class="badge bg-primary">{{ tag.name }}</div>
+    {% endfor %}
+  </div>
 
   <div id="post-buttons-container">
     <a href="/"><button class="btn btn-secondary">Cancel</button></a>

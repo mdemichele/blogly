@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+<div id="tag-details-title-container">
+  <h1 id="tag-details-title">{{ tag.name }}</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="tag-details-container">
+  {% if tag.posts %}
+    <ul id="tag-details-post-list">
+      {% for post in tag.posts %}
+      <a href="/posts/{{ post.id }}/edit"><li>{{ post.name }}</li></a>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+
+  <div id="tag-details-buttons-container">
+    <a href="/"><button class="btn btn-secondary">Cancel</button></a>
+    <a href="/tags/{{ tag.id }}/edit"><button class="btn btn-primary">Edit</button></a>
+    <a href="/tags/{{ tag.id }}/delete"><button class="btn btn-danger">Delete</button></a>
+  </div>
+</div>
+{% endblock %}

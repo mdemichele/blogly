@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+<div id="tag-list-title-container">
+  <h1 id="tag-list-title">Tags</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="tag-list-container">
+  {% if tags %}
+    <ul id="tag-list">
+    {% for tag in tags %}
+      <a href="/tags/{{ tag.id }}"><li>{{ tag.name }}</li></a>
+    {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+
+<div id="tag-add-container">
+  <a href="/tags/new"><button class="btn btn-primary">Add Tag</button>
+</div>
+{% endblock %}
