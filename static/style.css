@@ -29,3 +29,8 @@ form {
 #user-detail-text-container {
   width: 80%;
 }
+
+/* Post Page Styles */
+#post-tags-container {
+  padding: 20px 0px;
+}
